@@ -77,7 +77,7 @@ int main()
         }
     }
 
-    cout << "Minimum Cost:" << cost;
+    cout << "Maximum Cost:" << cost;
     cout << "\nEdges:";
     for (auto i : mst){
         cout << i.first << " - " << i.second << endl;
