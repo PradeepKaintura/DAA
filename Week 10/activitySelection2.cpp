@@ -40,7 +40,7 @@ int main()
         }
     }
 
-    cout << "No. of non conflicting activities: " << act.size();
+    cout << "Max no. of activities::  " << act.size();
     cout << "\nList of selected activities: ";
     for (auto it : act){
         cout << it << ", ";
