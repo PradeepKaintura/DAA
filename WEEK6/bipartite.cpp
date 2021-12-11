@@ -1,67 +1,56 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
+
 using namespace std;
 
-
-bool isBipartite(vector<vector<int>>& graph,vector<int>& color,int start,int c)
+isBip(vector<vector<int>> graph, int n ,int src)
 {
-    
+    vector<int> color(n,-1);
 
-    for(int i=0;i<graph[start].size();i++)
+    color[src]=1;
+
+    queue<int> q;
+    q.push(src);
+
+    while(!q.empty())
     {
-        if(color[graph[start][i]]==-1)
+        int u = q.front();
+        q.pop();
+
+        if(graph[u][u]==1)
+            return false;
+
+        for (int v=0;v<n;v++)
         {
-            if(c==0)
+            if(graph[u][v] && color[v]==-1)
             {
-                color[start]=1;
+                color[v]=1-color[u];
+                q.push(v);
             }
-            else
-            {
-                color[start]=0;
-            }
-            bool x= isBipartite(graph,color,graph[start][i],~c);
-            if(x==false)
-            {
+            else if(graph[u][v] && color[v]==color[u])
                 return false;
-            }
-        }
-        else
-        {
-            if((color[graph[start][i]])==(~c))
-            {
-                return false;
-            }
         }
     }
     return true;
 }
 
-
 int main()
 {
-    // Undirected Graph Starting from vertice 0
-    int v,e;
-    cout<<"enter the number of vertices and number of edges\n";
-    cin>>v>>e;
-    vector<vector<int>>graph(v);
-    for(int i=0;i<e;i++)
+    int n;
+    cin>>n;
+
+    vector<vector<int>> graph(n);
+
+    for(int i=0;i<n;i++)
     {
-        cout<<"enter the edge\n";
-        int m,n;
-        cin>>m>>n;
-        graph[m].push_back(n);
-        graph[n].push_back(m);
+        for(int j=0;j<n;j++)
+        {
+                int t;
+                cin>>t;
+                graph[i].push_back(t);
+        }
+            
     }
-    vector<int>color(v,-1);
-    int c=0;
-    bool ans=isBipartite(graph,color,0,c);
-    if(ans)
-    {
-        cout<<"the graph is bipartite\n";
-    }
-    else
-    {
-        cout<<"the graph is not bipartite\n";
-    }
-    return 0;
+
+
+    isBip(graph,n,0)?cout<<"YES": cout<<"NO";
 }
